@@ -1,0 +1,25 @@
+﻿@inject IJSRuntime JSRuntime
+@inject AuthenticationStateProvider authStateProvider
+@inject NavigationManager navManager
+@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<h4 class="text-small">AgroStore es una tienda que busca mayor accesibilidad a los productos del campo directamente con el productor</h4>
+
+<SurveyPrompt Title="How is Blazor working for you?" />
+
+<AuthorizeView Roles="AdminUser,user">
+    <Authorized>
+        <p>Hello, @context.User.Identity.Name</p>
+    </Authorized>
+    <NotAuthorized>
+        <p>no estas registrado aún</p>
+    </NotAuthorized>
+</AuthorizeView>
+@code {
+
+    [CascadingParameter]
+    private Task<AuthenticationState> authenticationState { get; set; }
+
+}

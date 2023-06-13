@@ -1,0 +1,85 @@
+is_global = true
+build_property.TargetFramework = net7.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = true
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property.EnforceExtendedAnalyzerRules = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = AgroStore
+build_property.RootNamespace = AgroStore
+build_property.ProjectDir = /home/johan/Documentos/Vscode/AgroStore/AgroStore/
+build_property.RazorLangVersion = 7.0
+build_property.SupportLocalizedComponentNames = 
+build_property.GenerateRazorMetadataSourceChecksumAttributes = 
+build_property.MSBuildProjectDirectory = /home/johan/Documentos/Vscode/AgroStore/AgroStore
+build_property._RazorSourceGeneratorDebug = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/App.razor]
+build_metadata.AdditionalFiles.TargetPath = QXBwLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Pages/Admin.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Pages/Counter.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ291bnRlci5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Pages/FetchData.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRmV0Y2hEYXRhLnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Pages/Index.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXgucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Pages/Login.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTG9naW4ucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Pages/LogOut.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvTG9nT3V0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Pages/Register.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUmVnaXN0ZXIucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Pages/ShoppingCart.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hvcHBpbmdDYXJ0LnJhem9y
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Pages/Vitrina.razor]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVml0cmluYS5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Shared/SurveyPrompt.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL1N1cnZleVByb21wdC5yYXpvcg==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/_Imports.razor]
+build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Shared/LoginComponent.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL0xvZ2luQ29tcG9uZW50LnJhem9y
+build_metadata.AdditionalFiles.CssScope = b-ej20axw6pu
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Shared/MainLayout.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL01haW5MYXlvdXQucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-kn1vlaykr6
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Shared/NavMenu.razor]
+build_metadata.AdditionalFiles.TargetPath = U2hhcmVkL05hdk1lbnUucmF6b3I=
+build_metadata.AdditionalFiles.CssScope = b-wy6ij5s277
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Pages/Error.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/home/johan/Documentos/Vscode/AgroStore/AgroStore/Pages/_Host.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvX0hvc3QuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 

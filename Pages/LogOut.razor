@@ -1,0 +1,22 @@
+@* @inject AuthenticationStateProvider authStateProvider
+@using Microsoft.AspNetCore.Components.Authorization
+@using AgroStore.Authentication.CustomAuthenticationStateProvider
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager navigationManager
+@using System.Security.Claims
+@page "/Logout"
+
+<button @onclick="Logout" class="btn btn-primary">Logout</button>
+
+@code {
+    private async Task Logout()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        NavigationManager Navigateto
+    }
+}
+
+
+
+ *@

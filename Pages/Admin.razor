@@ -1,0 +1,168 @@
+@using AgroStore.Shared.Interfaces
+@inject IProductService ProductService
+@inject IUserService UserService
+@using Microsoft.AspNetCore.Authorization
+@using Microsoft.AspNetCore.Components.Authorization
+@using AgroStore.Shared
+@inject IJSRuntime JSRuntime
+
+@page "/Admin"
+
+<AuthorizeView Roles="AdminUser">
+    <Authorized>
+        <p>hola,SuperUser @context.User.Identity.Name</p>
+        <div class="">
+
+            <form @onsubmit="SubmitFormAdmin">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="productname" class="form-label">Nombre del producto:</label>
+                            <input type="text" class="form-control" id="productname" @bind="productname">
+                        </div>
+                    </div>
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="limagen" class="form-label">Imagen:</label>
+                            <input type="file" accept="image/*" class="form-control-file" id="limagen" @bind="limagen">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lprecio" class="col-form-label-sm">Precio:</label>
+                    <input type="text" class="form-control" id="lprecio" @bind="lprecio">
+                </div>
+
+                <br />
+                <div>
+                    <label id="ldescripcion">Descripcion:</label>
+                    <textarea id="ldescripcion" @bind="ldescripcion"></textarea>
+                </div>
+                <div>
+                    <label id="lcantidad">Cantidad:</label>
+                    <input type="number" id="lcantidad" @bind="lcantidad">
+                </div>
+                <div class="d-flex justify-content-center">
+                    <button type="submit" class="btn btn-primary mt-2">Guardar</button>
+                </div>
+            </form>
+
+            <div class="row">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (user == null || !user.Any())
+                        {
+                            <tr>
+                                <td colspan="6">No hay usuarios registrados aún</td>
+                            </tr>
+                        }
+                        else
+                        {
+                            @foreach (var users in user.Take(10))
+                            {
+                                <tr>
+                                    <td>@users.id</td>
+                                    <td>@users.name</td>
+                                    <td>@users.email</td>
+
+                                    <td>
+                                        <button class="btn btn-link" @onclick="() => DeleteUser(users.id)">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                                class="bi bi-trash2-fill" viewBox="0 0 16 16">
+                                                <path
+                                                    d="M2.037 3.225A.703.703 0 0 1 2 3c0-1.105 2.686-2 6-2s6 .895 6 2a.702.702 0 0 1-.037.225l-1.684 10.104A2 2 0 0 1 10.305 15H5.694a2 2 0 0 1-1.973-1.671L2.037 3.225zm9.89-.69C10.966 2.214 9.578 2 8 2c-1.58 0-2.968.215-3.926.534-.477.16-.795.327-.975.466.18.14.498.307.975.466C5.032 3.786 6.42 4 8 4s2.967-.215 3.926-.534c.477-.16.795-.327.975-.466-.18-.14-.498-.307-.975-.466z" />
+                                            </svg>
+                                        </button>
+                                    </td>
+                                </tr>
+
+                            }
+                        }
+
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+    </Authorized>
+    <NotAuthorized>
+        <h1>Ni creas joputa</h1>
+    </NotAuthorized>
+</AuthorizeView>
+
+
+
+
+
+
+
+
+@code
+{
+
+
+    Product product = new Product();
+
+    private List<User> user { get; set; }
+
+    private string productname;
+    private string limagen;
+    private double lprecio;
+    private string ldescripcion;
+    private int lcantidad;
+
+    private async Task SubmitFormAdmin()
+    {
+        product.name = productname;
+        product.image = limagen;
+        product.price = lprecio;
+        product.description = ldescripcion;
+        product.quantity = lcantidad;
+        bool allPropertiesNull = typeof(Product)
+        .GetProperties()
+        .All(property => property.GetValue(product) == null);
+
+        if (product.name == null || product.image == null || product.price == 0 || product.description == null ||
+        product.quantity == 0)
+        {
+            await JSRuntime.InvokeVoidAsync("alert", "No se puede crear un producto con campos vacíos");
+        }
+        else
+        {
+            await ProductService.AddProduct(product);
+        }
+
+
+        productname = string.Empty;
+        limagen = string.Empty;
+        lprecio = 0;
+        ldescripcion = string.Empty;
+        lcantidad = 0;
+    }
+
+
+    private async Task DeleteUser(int userId)
+    {
+        await UserService.DeleteUser(userId);
+        user = await UserService.GetAll();
+
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = (await UserService.GetAll()).ToList();
+    }
+
+
+
+
+}

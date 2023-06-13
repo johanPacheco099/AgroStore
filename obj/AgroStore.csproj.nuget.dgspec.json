@@ -1,0 +1,92 @@
+{
+  "format": 1,
+  "restore": {
+    "/home/johan/Documentos/Vscode/AgroStore/AgroStore/AgroStore.csproj": {}
+  },
+  "projects": {
+    "/home/johan/Documentos/Vscode/AgroStore/AgroStore/AgroStore.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/home/johan/Documentos/Vscode/AgroStore/AgroStore/AgroStore.csproj",
+        "projectName": "AgroStore",
+        "projectPath": "/home/johan/Documentos/Vscode/AgroStore/AgroStore/AgroStore.csproj",
+        "packagesPath": "/home/johan/.nuget/packages/",
+        "outputPath": "/home/johan/Documentos/Vscode/AgroStore/AgroStore/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/home/johan/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net7.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net7.0": {
+            "targetAlias": "net7.0",
+            "projectReferences": {}
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        }
+      },
+      "frameworks": {
+        "net7.0": {
+          "targetAlias": "net7.0",
+          "dependencies": {
+            "Blazorise": {
+              "target": "Package",
+              "version": "[0.9.3, )"
+            },
+            "Microsoft.AspNetCore.Components.Authorization": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[7.0.5, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[7.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/lib/dotnet/sdk/7.0.105/RuntimeIdentifierGraph.json"
+        }
+      }
+    }
+  }
+}

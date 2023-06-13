@@ -1,0 +1,50 @@
+@using AgroStore.Shared.Interfaces
+@using AgroStore.Shared
+@page "/Carrito"
+@inject IProductService ProductService
+@inject NavigationManager NavigationManager
+
+<h3>Carrito de compras</h3>
+
+<div class="row">
+    @if (selectedProduct != null)
+    {
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card">
+                <img src="@selectedProduct.image" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">@selectedProduct.name</h5>
+                    <p class="card-text">@selectedProduct.description</p>
+                    <p class="card-text">Price: $@selectedProduct.price</p>
+                    <label for="lquantity">Cantidad:</label>
+                    <input type="number" id="lquantity" @bind="selectedProduct.quantity">
+                </div>
+            </div>
+        </div>
+    }
+    else
+    {
+        <p>No hay productos en el carrito.</p>
+    }
+</div>
+
+@code {
+    private Product selectedProduct { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        string productId = GetProductIdFromQueryString();
+        if (int.TryParse(productId, out int id))
+        {
+            selectedProduct = await ProductService.GetProductById(id);
+        }
+    }
+
+
+    private string GetProductIdFromQueryString()
+    {
+        var uri = new Uri(NavigationManager.Uri);
+        var query = System.Web.HttpUtility.ParseQueryString(uri.Query);
+        return query["id"];
+    }
+}

@@ -1,0 +1,126 @@
+@using AgroStore.Shared.Interfaces
+@inject AuthenticationStateProvider authStateProvider
+@using Microsoft.AspNetCore.Components.Authorization
+@using AgroStore.Authentication.CustomAuthenticationStateProvider
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+@using AgroStore.Shared
+@inject IJSRuntime JSRuntime
+@using AgroStore.Shared.Services
+@inject IUserService UserService
+@inject NavigationManager NavigationManager
+
+@page "/Register"
+
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-4">
+            <form class="rounded-3" @onsubmit="SubmitForm">
+                <div class="container-sm  mt-2">
+                    <div class="form-group">
+                        <label for="lnombre">Nombre:</label>
+                        <input type="text" class="form-control" id="lnombre" placeholder="Ingrese su nombre"
+                        @bind="lnombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="lemail">Email:</label>
+                        <input type="email" class="form-control" id="lemail" placeholder="Ingrese su email"
+                        @bind="lemail">
+                    </div>
+                    <div class="form-group">
+                        <label for="lpassword">Contraseña:</label>
+                        <input type="password" class="form-control" id="lpassword" placeholder="Ingrese su contraseña"
+                        @bind="lpassword">
+                    </div>
+                    <div class="form-group">
+                        <label for="lcedula">Cédula:</label>
+                        <input type="text" class="form-control" id="lcedula" placeholder="Ingrese su cédula"
+                        @bind="lcedula">
+                    </div>
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary mt-2">Register</button>
+                    </div>
+
+                </div>
+            </form>
+            @* @if (user.Count > 0)
+            {
+            <table>
+            @foreach (var userr in user)
+            {
+            <tr>
+            <td>@userr.name</td>
+            <td>@userr.email</td>
+            </tr>
+            }
+            </table>
+            }
+            else
+            {
+            <p>No hay registros disponibles.</p>
+            }
+            *@
+
+        </div>
+        <div class="col-8">
+            <img src="./images/image1.jpg" alt="Imagen de la derecha" class="img-fluid">
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+
+
+@code {
+
+    private bool IsLoged { get; set; }
+
+    User userr = new User();
+
+
+    private List<User> user { get; set; }
+
+    private string lnombre;
+    private string lcedula;
+    private string lemail;
+    private string lpassword;
+    private async Task SubmitForm()
+    {
+        userr.name = lnombre;
+        userr.cedula = lcedula;
+        userr.email = lemail;
+        userr.password = lpassword;
+        IsLoged = true;
+        if (userr.role == null)
+        {
+            userr.role = "user";
+
+        }
+        await UserService.AddUser(userr);
+
+
+        var result = await UserService.GetUserByEmail(lemail);
+
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(new User
+            {
+                email = result.email,
+                name = result.name,
+                role = result.role
+            });
+
+        NavigationManager.NavigateTo("/Vitrina", true);
+
+    }
+
+}
+
+
+
+
+

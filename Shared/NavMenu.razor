@@ -1,0 +1,55 @@
+﻿@inject AuthenticationStateProvider authStateProvider
+@using Microsoft.AspNetCore.Components.Authorization
+@using AgroStore.Authentication.CustomAuthenticationStateProvider 
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject NavigationManager NavigationManager
+@using System.Security.Claims
+
+<nav class="navbar navbar-expand-md bg-dark">
+    <div class="container-fluid">
+        <div class="" id="navbarNav">
+            <ul class="navbar-nav ml-auto">
+                <AuthorizeView>
+                    <Authorized>
+                        <li class="nav-item">
+                            <button @onclick="Logout" class="nav-link btn">Logout</button>
+                        </li>
+                    </Authorized>
+                    <NotAuthorized>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Login">Login</a>
+                        </li>
+                    </NotAuthorized>
+                </AuthorizeView>
+                <li class="nav-item">
+                    <a class="nav-link" href="/Vitrina">Vitrina</a>
+                </li>
+                <AuthorizeView Roles="AdminUser">
+                    <Authorized>
+                        <li class="nav-item">
+                            <a class="nav-link" href="/Admin">Admin</a>
+                        </li>
+                    </Authorized>
+                </AuthorizeView>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+
+    private async Task Logout()
+    {
+        var customAuthStateProvider = (CustomAuthenticationStateProvider)authStateProvider;
+        await customAuthStateProvider.UpdateAuthenticationState(null);
+        NavigationManager.NavigateTo("/Vitrina", true);
+    }
+}

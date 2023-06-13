@@ -1,0 +1,88 @@
+@using AgroStore.Shared.Services
+@using AgroStore.Shared
+@inject AuthenticationStateProvider authStateProvider
+@using AgroStore.Shared.Interfaces
+@inject IProductService ProductService
+
+@page "/Vitrina"
+
+
+
+<div class="row d-flex">
+    <div class="col-10">
+        <h3>Tienda</h3>
+    </div>
+    <div class="col-2">
+        <AuthorizeView Roles="AdminUser,user">
+            <Authorized>
+                <p>Hola, @context.User.Identity.Name</p>
+            </Authorized>
+            <NotAuthorized>
+                <p class="fw-bold">Hola ánonimo, registrate para una mejor experiencia</p>
+            </NotAuthorized>
+        </AuthorizeView>
+    </div>
+</div>
+
+<div class="row mt-4">
+    @foreach (var products in product)
+    {
+        <div class="col-md-6 col-lg-3 mb-4">
+            <div class="card">
+
+                @{
+                    // Obtener la ruta de la imagen sin el prefijo C:\fakepath\
+                    string imagePath = products.image;
+                    if (imagePath.StartsWith(@"C:\fakepath\"))
+                    {
+                        imagePath = imagePath.Substring(@"C:\fakepath\".Length);
+                    }
+                }
+                <img src="./images/@imagePath" class="card-img-top" alt="Product Image">
+                <div class="card-body">
+                    <h5 class="card-title">@products.name</h5>
+                    <p class="card-text">@products.description</p>
+                    <p class="card-text">Price: $@products.price</p>
+                    <div class="row d-flex">
+                        <div class="col-4">
+
+                        </div>
+                        <div class="col-4">
+                            <a class="btn btn-danger rounded-pill">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="bi bi-heart" viewBox="0 0 16 16">
+                                    <path
+                                        d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z" />
+                                </svg>
+                            </a>
+                        </div>
+                        <div class="col-4">
+                            <a href="/Carrito?id=@products.id" class="btn btn-warning rounded-pill">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                                    class="bi bi-bag" viewBox="0 0 16 16">
+                                    <path
+                                        d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+@code {
+
+    private List<Product> product { get; set; }
+    
+    private Product products = new Product();
+    private User users = new User();    
+    
+    protected override async Task OnInitializedAsync()
+    {
+        product = ProductService.GetAllProducts().ToList();
+    }
+
+}
