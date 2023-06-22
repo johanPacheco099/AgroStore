@@ -47,9 +47,10 @@ namespace AgroStore.Shared.Services
             return list;
         }
 
-        public User GetUserById(int userId)
+        public async Task<User> GetUserById(int userId)
         {
-            throw new NotImplementedException();
+           var userid = await _dbContext.FindAsync<User>(userId);
+           return userid;
         }
 
         public void UpdateUser(User user)

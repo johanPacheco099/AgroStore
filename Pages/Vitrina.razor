@@ -1,8 +1,14 @@
 @using AgroStore.Shared.Services
 @using AgroStore.Shared
+@using AgroStore.Authentication.CustomAuthenticationStateProvider
 @inject AuthenticationStateProvider authStateProvider
+@inject CustomAuthenticationStateProvider custom
 @using AgroStore.Shared.Interfaces
 @inject IProductService ProductService
+@inject IShoppingCartService ShoppingCartService
+@inject IJSRuntime JSRuntime
+@using System.Security.Claims
+
 
 @page "/Vitrina"
 
@@ -16,6 +22,7 @@
         <AuthorizeView Roles="AdminUser,user">
             <Authorized>
                 <p>Hola, @context.User.Identity.Name</p>
+
             </Authorized>
             <NotAuthorized>
                 <p class="fw-bold">Hola ánonimo, registrate para una mejor experiencia</p>
@@ -57,32 +64,58 @@
                             </a>
                         </div>
                         <div class="col-4">
-                            <a href="/Carrito?id=@products.id" class="btn btn-warning rounded-pill">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
-                                    class="bi bi-bag" viewBox="0 0 16 16">
-                                    <path
-                                        d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
-                                </svg>
-                            </a>
+                            <button @onclick="() => AddtoCart(products.id)">Agregar al carrito</button>
+                            @* <a href="/Carrito?id=@products.id" class="btn btn-warning rounded-pill">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+                        class="bi bi-bag" viewBox="0 0 16 16">
+                        <path
+                        d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2
+                        0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v9a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                        </svg>
+                        </a> *@
                         </div>
+                        <p>@products.id</p>
+
                     </div>
 
                 </div>
             </div>
         </div>
+
     }
+
 </div>
 
 @code {
 
     private List<Product> product { get; set; }
-    
+
+    private List<ClaimsIdentity> identities;
     private Product products = new Product();
-    private User users = new User();    
-    
+    private User users = new User();
+    private ShoppingCart carrito = new ShoppingCart();
+    private int userId { get; set; }
+
+
+
     protected override async Task OnInitializedAsync()
     {
         product = ProductService.GetAllProducts().ToList();
+       
     }
 
+    public async Task AddtoCart(int productId)
+    {
+        var actual = await custom.GetActuallyId();
+        products.id = productId;
+        var carrito = new ShoppingCart(
+        id_product: products.id,
+        id_user: actual,
+        quantity: products.quantity,
+        price: products.price
+        );
+        Console.WriteLine(productId);
+        await ShoppingCartService.AddToShoppingCart(carrito);
+    }
 }
+

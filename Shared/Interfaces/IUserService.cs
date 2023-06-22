@@ -4,7 +4,7 @@ namespace AgroStore.Shared.Interfaces
 {
     public interface IUserService
     {
-        User GetUserById(int userId);
+        Task<User> GetUserById(int userId);
         Task<User> GetUserByEmail(string Email);
         Task<User> AddUser(User user);
         void UpdateUser(User user);

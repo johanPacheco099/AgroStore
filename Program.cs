@@ -10,7 +10,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Components.Server;
 using AgroStore.Shared;
 using AgroStore.Authentication;
@@ -22,7 +21,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
 builder.Services.AddSingleton<WeatherForecastService>();
-builder.Services.AddScoped<AuthenticationStateProvider , CustomAuthenticationStateProvider>();
+//builder.Services.AddScoped<AuthenticationStateProvider , CustomAuthenticationStateProvider>();
 
 builder.Services.AddDbContext<AppDbcontext>(options =>
 {
@@ -32,16 +31,15 @@ builder.Services.AddDbContext<AppDbcontext>(options =>
 builder.Services.AddAuthenticationCore();
 builder.Services.AddScoped<IProductService, ProductService>(); // Cambio realizado aquí
 builder.Services.AddScoped<IUserService,UserService>();
-builder.Services.AddScoped<IShoppingcCart,ShoppingCartService>();
+builder.Services.AddScoped<IShoppingCartService,ShoppingCartService>();
 builder.Services.AddScoped<AuthenticationStateProvider, CustomAuthenticationStateProvider>();
+builder.Services.AddScoped<CustomAuthenticationStateProvider>();
+
 
 
 
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
     .AddEntityFrameworkStores<AppDbcontext>();
-
-builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-    .AddCookie();
 
 
 builder.Services.AddAuthorization();

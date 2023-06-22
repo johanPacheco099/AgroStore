@@ -1,0 +1,88 @@
+@using AgroStore.Shared.Interfaces
+@using AgroStore.Shared
+@inject IProductService ProductService
+@inject IShoppingCartService ShoppingCartService
+@inject NavigationManager NavigationManager
+@inject CustomAuthenticationStateProvider custom
+@using AgroStore.Authentication.CustomAuthenticationStateProvider
+@inject AuthenticationStateProvider authStateProvider
+@page "/Carrito"
+
+<h3>Carrito de compras</h3>
+
+<div class="row">
+    @if (carritoItems != null && carritoItems.Any())
+    {
+        @foreach (var item in carritoItems)
+        {
+            <div class="col-md-6 col-lg-3 mb-4">
+                <div class="card">
+                    <div class="card-body">>
+                        <p class="card-text">Price: $@item.price</p>
+                        <label for="lquantity">Cantidad: @item.quantity</label>
+                    </div>
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <p>No hay productos en el carrito.</p>
+    }
+</div>
+
+
+@* <div class="row">
+@if (selectedProduct != null)
+{
+<div class="col-md-6 col-lg-3 mb-4">
+<div class="card">
+<img src="@selectedProduct.image" class="card-img-top" alt="Product Image">
+<div class="card-body">
+<h5 class="card-title">@selectedProduct.name</h5>
+<p class="card-text">@selectedProduct.description</p>
+<p class="card-text">Price: $@selectedProduct.price</p>
+<label for="lquantity">Cantidad:</label>
+<input type="number" id="lquantity" @bind="selectedProduct.quantity">
+</div>
+</div>
+</div>
+}
+else
+{
+<p>No hay productos en el carrito.</p>
+}
+</div> *@
+
+
+
+
+@code {
+
+    
+
+    private List<ShoppingCart> carritoItems; // Variable para almacenar los elementos del carrito
+
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        
+    }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+{
+    if (firstRender)
+    {
+        await GetItemsFromCarrito();
+        StateHasChanged();
+    }
+}
+
+    public async Task GetItemsFromCarrito()
+    {
+        var actual = await custom.GetActuallyId();
+        carritoItems = await ShoppingCartService.GetUserItems(actual);
+
+    }
+}

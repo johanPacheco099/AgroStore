@@ -27,7 +27,7 @@ namespace AgroStore.Shared.Services
                 throw new ArgumentNullException(nameof(product), "El objeto product no puede ser nulo.");
             }
         }
-        public void DeleteProduct(int productId)
+        public void DeleteProduct(int id_product)
         {
             throw new NotImplementedException();
         }
@@ -36,9 +36,9 @@ namespace AgroStore.Shared.Services
             return _dbContext.product?.ToList() ?? new List<Product>();
         }
 
-        public async Task<Product> GetProductById(int productId)
+        public async Task<Product> GetProductById(int id_product)
         {
-            var product = await _dbContext.FindAsync<Product>(productId);
+            var product = await _dbContext.FindAsync<Product>(id_product);
             return product;
         }
 

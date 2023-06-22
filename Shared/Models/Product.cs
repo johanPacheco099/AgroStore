@@ -15,7 +15,7 @@ public class Product
 
     public Product(){}
 
-    public Product(string Name, string Description, int Quantity, string Image, float Price)
+    public Product(string Name, string Description, int Quantity, string Image, double Price)
     {
         
         name = Name;

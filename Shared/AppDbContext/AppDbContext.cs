@@ -6,7 +6,8 @@ public class AppDbcontext : DbContext
     public DbSet<User>? user { get; set; }
     // public DbSet<Order>? Orders { get; set; }
     public DbSet<Product>? product { get; set; }
-    public DbSet<ShoppingCart> shoppingCart {get;set;}
+    public DbSet<ShoppingCart> shoppingCart{ get; set; }
+
 
     public AppDbcontext(DbContextOptions<AppDbcontext> options) : base(options)
     {
